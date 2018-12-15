@@ -91,10 +91,10 @@ def parse_post(post_json):
     # generate a soup object for a post
     # three types: text, question/answer, link
 
-    if 'regular-body' in post_json and post_json['regular-body']:
+    if post_json['type'] == 'regular':
         soup = make_soup(post_json['regular-body'])
 
-    elif 'question' in post_json and post_json['question']:
+    elif post_json['type'] == 'answer':
         soup = make_soup('')
 
         label = soup.new_tag('h2')
@@ -107,7 +107,7 @@ def parse_post(post_json):
         soup.append(label)
         soup.append(make_soup(post_json['answer']))
 
-    elif 'link-url' in post_json and post_json['link-url']:        
+    elif post_json['type'] == 'link':        
         soup = make_soup(post_json['link-description'])
 
         link_text = soup.new_tag('h2')
@@ -119,7 +119,7 @@ def parse_post(post_json):
 
         soup.append(source_link_soup)
 
-    elif 'photo-caption' in post_json and post_json['photo-caption']:
+    elif post_json['type'] == 'photo':
 
         soup = make_soup(post_json['photo-caption'])
 
@@ -132,7 +132,8 @@ def parse_post(post_json):
             img = soup.new_tag('img', src=post_json['photo-url-1280'])
             soup.insert(0, img)
 
-
+    elif post_json['type'] == 'video':
+        soup = make_soup('<h2>Unable to parse video items at this time</h2>')
 
     else:
         soup = make_soup('<h2>Unable to parse the page</h2>')
@@ -165,8 +166,9 @@ def main():
         # obtain the json object for the post and get some metadata off it
         post_json = read_json_file(post['filename'])
         post['id'] = post_json['id']
-        post['title'] = post_json['slug'].replace('-', ' ').title()
         post['timestamp'] = post_json['unix-timestamp']
+        post['title'] = post_json['slug'].replace('-', ' ').title() if post_json['slug'] else 'Posted on ' + post_json['date']
+        post['title'] += ' ({})'.format(post_json['type'].title())
 
         # generate an html file for the post
         soup = parse_post(post_json)
