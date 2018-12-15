@@ -7,7 +7,7 @@ tumblr_generate_html_files is a script which lets users generate HTML files for 
 
 1. Clone the repository to your local machine
 2. Make sure Python 3 is installed
-3. Make sure jinga2 and BeautifulSoup are installed, if not:
+3. Make sure jinja2 and BeautifulSoup are installed, if not:
 
    * `pip install Jinja2`
    * `pip install beautifulsoup4`
