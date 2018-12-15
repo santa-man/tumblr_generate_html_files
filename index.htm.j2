@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index</title>
+	<style type="text/css">
+
+	.page-wrap {
+		max-width: 960px;
+		margin: 0 auto;
+	}
+
+	body {
+		background-color: #EEE;
+		font-family: Sans-Serif
+	}
+
+	img {
+		margin: 0 auto;
+		display: block;
+	}
+
+	a {
+		text-decoration: none;
+		color: #333;
+	}
+
+	ul {
+		padding-left: 0px;
+	}
+
+	li {
+		font-size: 18px;
+		list-style: none;
+		margin-bottom: 4px;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="page-wrap">
+		
+		<h1>Index</h1>
+
+		<ul>
+			{% for post in posts|sort(attribute='timestamp', reverse=True) %}
+				<li><a href="{{ post['id'] }}.html">{{ post['title'] }}</a></li>
+			{% endfor %}	
+		</ul>
+
+	</div>
+</body>
+</html>

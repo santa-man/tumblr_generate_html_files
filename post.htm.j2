@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ post['regular-title'] }}</title>
+	<style type="text/css">
+
+	.page-wrap {
+		max-width: 960px;
+		margin: 0 auto;
+	}
+
+	body {
+		background-color: #EEE;
+		font-family: Sans-Serif
+	}
+
+	img {
+		margin: 0 auto;
+		display: block;
+		max-width: 100%;
+		max-height: 500px;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="page-wrap">
+		
+		<h5><a href="_index.html">Return back to the index page</a></h5>
+
+		<h1>{{ post['regular-title'] }}</h1>
+
+		<h4><a href="{{ post.url}}">Original post</a> was posted on {{ post.date}} in the <a href="{{ post['tumblelog']['url'] }}">{{ post['tumblelog']['title'] }}</a> blog</h4>
+
+		<div>
+			{{ body }}
+		</div>
+
+	</div>
+</body>
+</html>
