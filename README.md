@@ -5,7 +5,7 @@ tumblr_generate_html_files is a script which lets users generate HTML files for 
 
 ## Installation
 
-1. Clone the repository to your local machine
+1. Clone the repository to your local machine (or download the zip file)
 2. Make sure Python 3 is installed
 3. Make sure jinja2 and BeautifulSoup are installed, if not:
 
@@ -37,9 +37,9 @@ BLOG_DIR is the download directory to which [TumblThree](https://github.com/joha
 
 1. Download a blog with the correct settings using [TumblThree](https://github.com/johanneszab/TumblThree)
 
-<img src="https://i.imgur.com/rYncGiI.png" width="850">
+<img src="https://i.imgur.com/7HNkFSq.png" width="850">
 
-2. Run the script
+2. Run the script (might take a little while, be patient)
 
 <img src="https://i.imgur.com/ovkkVmH.png" width="850">
 
@@ -58,6 +58,11 @@ BLOG_DIR is the download directory to which [TumblThree](https://github.com/joha
 ## Contributions
 
 Pull requests are welcome.
+
+Helped wanted implementing the following:
+
+* Parse video posts
+* Add tags to the HTML file
 
 ## Disclaimer
 

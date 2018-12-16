@@ -54,8 +54,6 @@ def get_template(name):
     # http://jinja.pocoo.org/docs/2.10/api/#jinja2.FileSystemLoader
     # http://jinja.pocoo.org/docs/2.10/templates/
 
-    print
-
     template_dir = os.path.dirname(os.path.realpath(__file__))
     template_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir))
     template = template_env.get_template(name)
@@ -89,7 +87,7 @@ def fix_images(soup):
 def parse_post(post_json):
 
     # generate a soup object for a post
-    # three types: text, question/answer, link
+    # five types of posts: regular, question/answer, link, image, video
 
     if post_json['type'] == 'regular':
         soup = make_soup(post_json['regular-body'])
@@ -120,7 +118,6 @@ def parse_post(post_json):
         soup.append(source_link_soup)
 
     elif post_json['type'] == 'photo':
-
         soup = make_soup(post_json['photo-caption'])
 
         if post_json['photos']:
@@ -145,11 +142,10 @@ def main():
 
     BLOG_DIR = get_args().BLOG_DIR
 
-    # set our working dir
-
     post_template = get_template(name='post.htm.j2')
     index_template = get_template(name='index.htm.j2')
 
+    # set our working dir to where the downloaded files are
     os.chdir(BLOG_DIR)
 
     # find all the posts in the tumblr directory
@@ -161,6 +157,8 @@ def main():
         print('\t2) The "Dump crawler data" option is checked in TumblThree')
         return
 
+    print('Beginning to generate HTML files...')
+
     for post in posts:
 
         # obtain the json object for the post and get some metadata off it
@@ -169,6 +167,12 @@ def main():
         post['timestamp'] = post_json['unix-timestamp']
         post['title'] = post_json['slug'].replace('-', ' ').title() if post_json['slug'] else 'Posted on ' + post_json['date']
         post['title'] += ' ({})'.format(post_json['type'].title())
+
+        # add back our generated titles to posts which don't have titles
+        if not 'regular-title' in post_json:
+            post_json['regular-title'] = post['title']
+        elif not post_json['regular-title']:
+            post_json['regular-title'] = post['title']
 
         # generate an html file for the post
         soup = parse_post(post_json)
