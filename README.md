@@ -14,8 +14,7 @@ tumblr_generate_html_files is a script which lets users generate HTML files for 
   
 ## Usage
 
-Use [TumblThree](https://github.com/johanneszab/TumblThree) to download a blog of our choice. Make sure the option `Dump crawler data` is checked ([like so](https://i.imgur.com/5AIkxzN.png
-)).
+Use [TumblThree](https://github.com/johanneszab/TumblThree) to download a blog of your choice. Make sure the options `Dump crawler data`, `Download image meta`, and `Download video meta` are checked ([the options circled here](https://i.imgur.com/7HNkFSq.png)).
 
 Then use the `generate_html_files.py` script to generate the HTML files.
 

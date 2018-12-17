@@ -70,7 +70,7 @@ def fix_images(soup):
 
     for img in imgs:
 
-        rslt = re.search(r'(\w+?)(?:_\d+)?\.(jpg|png|gif|mp4)', img['src'])
+        rslt = re.search(r'(\w+?)(?:_\d+)?\.(jpg|png|gif|mp4|gifv)', img['src'])
 
         if rslt:
             possible_matches = glob.glob(rslt.group(1) + '*' + rslt.group(2))
@@ -108,9 +108,10 @@ def parse_post(post_json):
     elif post_json['type'] == 'link':        
         soup = make_soup(post_json['link-description'])
 
-        link_text = soup.new_tag('h2')
-        link_text.string = post_json['link-text']
-        soup.insert(0, link_text)
+        if 'link-text' in post_json:
+            link_text = soup.new_tag('h2')
+            link_text.string = post_json['link-text']
+            soup.insert(0, link_text)
 
         source_link = '<h4>Source: <a href="' + post_json['link-url'] + '">' + post_json['link-url'] + '</a></h4>'
         source_link_soup = make_soup(source_link)
